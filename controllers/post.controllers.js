@@ -36,7 +36,7 @@ export const getPosts = async (req, res) => {
     try {
 
         const posts = await postModel.find();
-        console.log(posts)
+        // console.log(posts)
         res.status(StatusCodes.OK).json({ success: true, posts });
     } catch (error) {
         console.log(error);
