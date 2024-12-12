@@ -1,6 +1,8 @@
 import express from 'express';
 import UserRouter from '../routes/user.route.js';
 import postRouter from '../routes/post.route.js';
+import advertisementRouter from '../routes/advertisement.route.js';
+
 
 
 
@@ -14,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", UserRouter);
 app.use("/api/post", postRouter);
+app.use("/api/advertisement", advertisementRouter);
+
 
 
 
