@@ -37,27 +37,34 @@ export const login = async (req, res) => {
 
 export const addUser = async (req, res) => {
 
+    try {
 
-    const { fullName, email, password } = req.body;
+        const { fullName, email, password } = req.body;
 
-    // 1) check if the user email is existing
-    const existingUser = await findByEmail(email);
-    if (existingUser) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
-            {
-                error: true,
-                message: "this email already exists"
-            }
-        )
-    } else {
-        // 2) check if not existing create user
-        const hashPWD = await bcrypt.hash(password, 10);
-        await userModel.create({ fullName, email, password: hashPWD });
-        res.status(StatusCodes.CREATED).json({
-            success: true,
-            message: "User created successfully"
-        })
+        // 1) check if the user email is existing
+        const existingUser = await findByEmail(email);
+        if (existingUser) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+                {
+                    error: true,
+                    message: "this email already exists"
+                }
+            )
+        } else {
+            // 2) check if not existing create user
+            const hashPWD = await bcrypt.hash(password, 10);
+            await userModel.create({ fullName, email, password: hashPWD });
+            res.status(StatusCodes.CREATED).json({
+                success: true,
+                message: "User created successfully"
+            })
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: true, message: "Internal server error" })
     }
 
-
 }
+
+
