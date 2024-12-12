@@ -1,12 +1,13 @@
-
-import express from "express";
+//dotenv setup
 import dotenv from "dotenv";
 dotenv.config();
-const app = express();
+//app module setup
+import app from "./src/app.js";
+//port
 const PORT = process.env.PORT;
 import "./database/db.js";
 
-// console.log(process.env.DB_URL)
+
 
 
 app.listen(PORT, () => {
